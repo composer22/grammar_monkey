@@ -1,0 +1,15 @@
+*.gem
+*.rbc
+.bundle
+.config
+.yardoc
+Gemfile.lock
+.idea
+.DS_Store
+pkg
+.name
+.raketasks
+*.xml
+*.iml
+scopes
+

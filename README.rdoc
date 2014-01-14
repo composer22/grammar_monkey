@@ -1,0 +1,76 @@
+== Grammar Monkey
+
+Grammar Monkey provides a new string class that contains several useful functions for evaluating the readibility
+and writing style of any associated text, such as an article.  This is useful for writers to discover various errors
+in their writing.
+
+This include:
+
+* common spelling
+* runons sentences
+* coordinated conjunction usage
+* transitions
+* wordiness
+* common grammar errors
+* passive voice
+* sticky words
+* proper mix of short and long sentences
+
+=== Credits and Disclaimers
+
+This work is inspired by Mark Fullmer's http://grammark.org
+
+=== Additional Sticky Word Feature
+
+A crude attempt at identifying counts of articles, adverbs, conjunctions and prepositions within a sentence is
+performed using an additional parts of speech dictionary provided by the Moby dictionary project.
+
+see: http://en.wikipedia.org/wiki/Moby_Project
+
+=== Testing
+
+Rspec has not been written yet.
+
+=== Bug reports
+
+If you discover a problem, we would like to know about it.   Simply sign into github and report the issue.
+
+=== RDocs
+
+none
+
+=== Contributing
+
+This is a personal project for the time being.  As I find general functionality with my own writing, I will share it.
+Please contact me if you have any cool ideas.
+
+=== Installation
+
+Not publically release yet, as I continue to add things
+
+    git clone git@github:composer22/grammar_monkey.git
+    cd grammar_monkey
+    gem build grammar_monkey.gemspec
+    gem install grammar_monkey<version>.gem
+
+=== Getting started
+
+    require 'grammar_monkey'
+
+    test_text = "Some text you want to analyze.  This can be an article or from a story."
+
+    grammar_string = GrammarMonkey::GrammarString.new test_text
+
+    sentences = grammar_string.analyze
+
+    pp sentences
+
+    # This returns an array of hashes.  Each hash represents a sentence from the original
+    # text. :text is the original text.  :anaysis is a breakdown of what the scanners
+    # found within each sentence.
+
+
+== License
+
+MIT License. Copyright 2014
+
