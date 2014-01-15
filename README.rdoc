@@ -61,9 +61,11 @@ Not publically release yet, as I continue to add things
 
     grammar_string = GrammarMonkey::GrammarString.new test_text
 
-    sentences = grammar_string.analyze
+    grammar_string.analyze
 
-    pp sentences
+    pp grammar_string.sentences
+
+    pp grammar_string.standard_deviation
 
     # This returns an array of hashes.  Each hash represents a sentence from the original
     # text. :text is the original text.  :anaysis is a breakdown of what the scanners
