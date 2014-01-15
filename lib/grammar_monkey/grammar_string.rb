@@ -80,7 +80,7 @@ module GrammarMonkey
     def scan_spelling
       CSV.foreach(DATA_FILEPATH + DICTIONARIES[:misspellings], headers: true) do |row|
         @sentences.each do |s|
-          if (count = s[:text].downcase.scan(/#{ '\b' + row[1] + '\b' }/).count) > 0
+          if (count = s[:text].downcase.scan(/#{ '\b' + row[1] + '\b' }/).size) > 0
             s[:analysis][:misspellings] ||= []
             s[:analysis][:misspellings] << { error: row[1], correction: row[2], total: count }
           end
@@ -97,7 +97,7 @@ module GrammarMonkey
     def scan_coord_conjunct
       @sentences.each do |s|
         COORDINATED_CONJUNCTIONS.each do |cc|
-          if (count = s[:text].downcase.scan(/#{ '\b' + cc + '\b' }/).count) > 0
+          if (count = s[:text].downcase.scan(/#{ '\b' + cc + '\b' }/).size) > 0
             s[:analysis][:coord_conjunct] ||= 0
             s[:analysis][:coord_conjunct] += count
           end
@@ -167,7 +167,7 @@ module GrammarMonkey
       CSV.foreach(DATA_FILEPATH + DICTIONARIES[key], headers: true) do |row|
         search = row[1].downcase
         @sentences.each do |s|
-          count = s[:text].downcase.scan(/#{ search }/).count
+          count = s[:text].downcase.scan(/#{ search }/).size
           if count > 0
             result = { total: count }
             result.merge!(correction: row[2]) if row[2]
@@ -186,4 +186,4 @@ end
 #text          = 'All in all, it was a dark and stormy abberant night, and I knew it was a acronym to the city; I kept walkin a lesser degree of distance. The world was fallen.'
 #tester = GrammarMonkey::GrammarString.new(text)
 #tester.analyze
-#tester.sentences
+#pp tester.sentences

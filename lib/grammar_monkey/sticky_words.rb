@@ -3,11 +3,13 @@ require 'csv'
 module GrammarMonkey
   module StickyWords
 
-    # Load table word + usage (first char is primary)
-    # mask:
+    # Load table word + usage (first char is primary; second secondary)
+    #
+    # mask ONLY first and secondary usages:
+    #
     # D = article
     # v = adverb
-    # C = conjuntion
+    # C = conjunction
     # P = preposition
     #
     DATA_FILEPATH = File.dirname(__FILE__) + '/data/'
@@ -16,8 +18,10 @@ module GrammarMonkey
     def self.extended(base)
       sticky_words = {}
       CSV.foreach(DATA_FILEPATH + DICTIONARY, headers: true) do |row|
-        sticky_words[row[0].downcase] = row[1]
+        size = row[1].size > 1  ? row[1].scan(/^[v|C|B|P][v|C|B|P]/).size : row[1].scan(/^[v|C|B|P]/).size
+        sticky_words[row[0].downcase] = row[1] if size > 0
       end
+
       base.class_eval do
         @sticky_words = sticky_words
 
