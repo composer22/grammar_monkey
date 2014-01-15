@@ -18,7 +18,7 @@ This include:
 
 === Credits and Disclaimers
 
-This work is inspired by Mark Fullmer's http://grammark.org
+This work is totally inspired by Mark Fullmer's work on http://grammark.org
 
 === Additional Sticky Word Feature
 
@@ -72,5 +72,5 @@ Not publically release yet, as I continue to add things
 
 == License
 
-MIT License. Copyright 2014
+GPL3 License. Copyright 2014
 
