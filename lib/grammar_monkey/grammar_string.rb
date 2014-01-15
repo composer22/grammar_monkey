@@ -1,6 +1,10 @@
 require 'csv'
+require 'grammar_monkey/sticky_words'
+
 module GrammarMonkey
   class GrammarString < String
+
+    extend GrammarMonkey::StickyWords
 
     DEFAULT_MAX_RUNON_WORDS = 50
 
@@ -131,19 +135,7 @@ module GrammarMonkey
     end
 
     def scan_sticky_words
-
-      # Load table word + usage (first char is primary)
-      # mask:
-      # D = article
-      # v = adverb
-      # C = conjuntion
-      # P = preposition
-      #
-      sticky_words = {}
-      CSV.foreach(DATA_FILEPATH + DICTIONARIES[:sticky_words], headers: true) do |row|
-        sticky_words[row[0].downcase] = row[1]
-      end
-
+      sticky_words = self.class.sticky_words
       @sentences.each do |s|
         s[:text].gsub(/[^-a-zA-Z\']/, ' ').split.each do |w|
           if sticky_words[w.downcase]
@@ -191,7 +183,7 @@ end
 #
 #text   = "It is funny how America complains so much about the safety of the community or the safety of the country. Yet they walk around provoking people of doing wrong. For instance sex offenders. Why is it that women get raped a lot on the streets? Or why do children get molested by a family member? Is there any defense that America can come up with that will make the world a better and safer place? Why not vote for Proposition 83. Prop 83 will protect our children by keeping child molesters in prison longer; keeping them away from schools and parks; and monitoring their movement after they are released. America is the country of freedom and rights. Sometimes people abuse that freedom a little too much. For instance women walking around with their little short skirts. Why do they dress like that? They also walk around showing their stomach and exposing their breast for the entire world to see. The only thing that they are doing is making their lives more dangerous. Yet, when they are raped they complain. Well they asked for it. I understand that this proposition will help the law by capturing the sex offenders, but how does a monitor stop the offender from doing the crime? Also it is funny how the law throws people in jail for exposing them self out in the public vomiting, while being drunk. Yet they do not throw whores in jail for exposing their butts while walking down the streets with their short mini skirts. This law passed on will not change the state. Other states in this country have tried this law and it was a failure. For example this law was passed on in the state of Iowa and they said that this proposition turned out to be a failure. The idea of the safety for the residency did not help to stop the sex offenses against children. It also did not improve children’s safety. There was a chart of 80% to 90% of sex crimes committed even though the sex offenders had the monitor on. These criminals did not go on to unknown residencies, but to their own or acquaintances. Residence restriction in this proposal goes against the purpose of the safety because the offenders will go on to harming the public. It might not be a big offense that the offenders do but they might for instance grab a persons butt. Also sociological way proves that a person likes to do the opposite and see how far they can push the law for instance. They are psycho people out in the world who don’t have the capability of thinking from right and wrong. They just go for what pleases them. Monitors will not stop a person with a mind like that. There was a page “Jessica’s law.” In this report it showed how every police, sheriff, district attorney, and other major laws were all for this proposition. If we made a survey to see what country has come to be the most lazy country that they invent every possible technology system that will decrease there work. It will be America. Since when was it a monitors job to track down a criminal? These officers and other major laws are only trying to have the “Jessica law” put through, so they do not have to put so much time in to just one offense crime. No matter what comes up in this world it will never make any sense. America, the “New World,” in the 1700’s was fighting for their freedom of tax. The Stamp Act was being but on by the governor and the Sons of Liberty was not buying this Act. They also fought the British because they were taxing the Americans for British goods. Now it is 2007 and the governor is taxing higher and higher. So contradicting, and yet we have the freedom? Well this law if having “every” sex offender but in jail them being punish with this monitor for life. That means even though it was a minor offense. Why not just kill the person? They really have no rights after having this monitor placed on them. Yet, it is funny how the officer tells the person being arrest the Miranda Law. “You have the right to…” What right? They do not give the offender any rights by having this new technology being place on them. This proposition assures all the people that these sex offenders will be stopped. Every two minutes a rape or sexual assault occurs and every 35 seconds a child is abused or neglected. How can this proposition be assured? Nobody can assure anything. Everyone has there own mind and life. Offenders will not stop doing anything by just having a monitor place on them. If the first war in America did not stop other wars from accruing then how can we stop the sex offenders? The only way is by doing what we have always done, build more prisons."
 #
-##text          = 'All in all, it was a dark and stormy abberant night, and I knew it was a acronym to the city; I kept walkin a lesser degree of distance. The world was fallen.'
-#tester = GrammarString.new(text)
+#text          = 'All in all, it was a dark and stormy abberant night, and I knew it was a acronym to the city; I kept walkin a lesser degree of distance. The world was fallen.'
+#tester = GrammarMonkey::GrammarString.new(text)
 #tester.analyze
-#pp tester.sentences
+#tester.sentences
