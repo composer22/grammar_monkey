@@ -141,9 +141,7 @@ module GrammarMonkey
           if sticky_words[w.downcase]
             s[:analysis][:sticky_words]         ||= { total: 0, adverbs: 0 }
             s[:analysis][:sticky_words][:total] += 1
-            if sticky_words[w.downcase][0..0] == 'v'
-              s[:analysis][:sticky_words][:adverbs] += 1
-            end
+            s[:analysis][:sticky_words][:adverbs] += 1  if sticky_words[w.downcase][0..0] == 'v'
           end
         end
       end
